@@ -1,8 +1,6 @@
-/**
- *! Listeye boş karakter eklenemiyor. Bununla birlikte hiçbir şey yazılmadığında da aynı hatayı veriyor.
- *? Element silme ekleme checked isaretleme
- ** Boostrap Toast bildirimi
- */
+
+
+//DOM Selectors
 let basicToast = document.querySelector('.toast')
 let closeToast = document.querySelector('.close-toast')
 let toastMessage = document.querySelector('.toast-body')
@@ -11,22 +9,30 @@ let toDoListDOM = document.querySelector("#list")
 let whatToDo = document.querySelector("#task")
 let newElement = document.querySelector(".newElement")
 let todos = []
+
+//Live Footer Text
 footerText.innerHTML = `${"&copy; "}${new Date().getFullYear()}${' All Rights Reserved '}${'<a class="text-white text-decoration-none" href="https://github.com/melihcelik09">@melihcelik</a>'}`
-//ENTER İLE EKLEME
+
+//ADD with Enter Key
 whatToDo.addEventListener("keyup", function (e) {
     if (e.keyCode == 13) {
         e.preventDefault()
         addToDo(whatToDo.value)
     }
 })
-//TIKLAMA İLE EKLEME
+
+//ADD with Click Event
 newElement.addEventListener('click', function (e) {
     e.preventDefault()
     addToDo(whatToDo.value)
 })
+
+// Toast Close Button Event
 closeToast.addEventListener('click', function (e) {
     basicToast.classList.remove("show")
 })
+
+// Add Function
 function addToDo(item) {
     if (item?.trim().length > 0) {
         const todo = {
@@ -43,6 +49,8 @@ function addToDo(item) {
         toastNotice("You cannot add empty tasks.Try writing something.")
     }
 }
+
+// Notice Function
 function toastNotice(message) {
     basicToast.classList.add("show")
     toastMessage.innerHTML = `${message}`
@@ -80,6 +88,7 @@ function getFromLocalStorage() {
 
 getFromLocalStorage()
 
+// Delete Function
 function deleteToDO(target, close) {
     let item = todos.find(item => item.num === Number(target))
     todos.splice(todos.indexOf(item), 1)
@@ -95,6 +104,8 @@ toDoListDOM.addEventListener('click', function (e) {
         deleteToDO(targetArr, closeBtn)
     }
 })
+
+// Checked Function
 function checkedToDo(checked, target) {
     let checkItem = todos.find(item => item.num === Number(target))
     if (checkItem.completed == false) {
@@ -105,6 +116,7 @@ function checkedToDo(checked, target) {
         addToLocalStorage(todos)
     }
 }
+
 toDoListDOM.addEventListener('click', function (e) {
     const checked = e.target
     if (checked.tagName === 'LI') {
